@@ -51,82 +51,150 @@ class _ProductListScreenState extends State<ProductListScreen> {
           ],
         ),
         body: Consumer<ProductListScreenController>(
-          builder: (context, providerObj, child) => Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                Container(
-                  // color: Colors.red,
+          builder: (context, providerObj, child) => providerObj
+                      .products.length ==
+                  0
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(15),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Sneakers",
-                            style: TextStyle(
-                                fontSize: 27, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 150,
-                          ),
-                          Icon(Icons.keyboard_double_arrow_up),
-                          Icon(Icons.align_vertical_bottom)
-                        ],
+                      Container(
+                        // color: Colors.red,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Sneakers",
+                                  style: TextStyle(
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 150,
+                                ),
+                                Icon(Icons.sort),
+                                Icon(Icons.filter_alt_outlined)
+                              ],
+                            ),
+                            Text(
+                              "25 products found",
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       ),
-                      Text(
-                        "25 products found",
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: GridView.builder(
+                          itemCount: providerObj.products.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisExtent: 308,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 15),
+                          itemBuilder: (context, index) => Column(
+                            children: [
+                              Card(
+                                elevation: 2,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Align(
+                                            alignment: Alignment.bottomRight,
+                                            child: Icon(Icons.favorite_border)),
+                                      ),
+                                      Image(
+                                        image: NetworkImage(providerObj
+                                                .products[index]
+                                                .images
+                                                ?.first ??
+                                            ""),
+                                        height: 120,
+                                        width: 170,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Text(
+                                          providerObj.products[index].title
+                                              .toString(),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.attach_money,
+                                              size: 20,
+                                              color: Colors.black,
+                                            ),
+                                            Text(providerObj
+                                                .products[index].price
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.yellow,
+                                            ),
+                                            Text(providerObj
+                                                .products[index].rating
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                  // height: 250,
+                                  width: 165,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       )
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: GridView.builder(
-                    itemCount: providerObj.products.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisExtent: 200,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 15),
-                    itemBuilder: (context, index) => Column(
-                      children: [
-                        Container(
-                          child: Column(
-                            children: [
-                              Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Icon(
-                                    Icons.favorite,
-                                  )),
-                              Image(
-                                  image: NetworkImage(providerObj
-                                      .products[index].images
-                                      .toString())),
-                              Text(
-                                  providerObj.products[index].title.toString()),
-                              Text(
-                                  providerObj.products[index].price.toString()),
-                              Text(
-                                  providerObj.products[index].rating.toString())
-                            ],
-                          ),
-                          height: 200,
-                          width: 155,
-                          color: Colors.white,
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
         ));
   }
 }

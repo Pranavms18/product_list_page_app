@@ -26,40 +26,42 @@ class _BottamnavbarScreenState extends State<BottamnavbarScreen> {
     return Scaffold(
       body: screens[selectedTab],
       bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.black,
           currentIndex: selectedTab,
           onTap: (value) {
             selectedTab = value;
             setState(() {});
           },
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.red,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white,
           items: [
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.home_outlined,
+                  Icons.window_rounded,
                   size: 30,
                 ),
-                label: "Home",
-                backgroundColor: Colors.red),
+                label: "",
+                backgroundColor: Colors.white),
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.restaurant_menu_sharp,
+                  Icons.format_line_spacing_rounded,
                   size: 30,
                 ),
-                label: "Menu",
-                backgroundColor: Colors.red),
+                label: "",
+                backgroundColor: Colors.white),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle_outlined),
-                label: "Sign in",
-                backgroundColor: Colors.red),
+                icon: Icon(Icons.shopping_bag_outlined),
+                label: "",
+                backgroundColor: Colors.white),
             BottomNavigationBarItem(
-                icon: Icon(Icons.fastfood),
-                label: "Cart",
-                backgroundColor: Colors.red),
+                icon: Icon(Icons.favorite_border),
+                label: "",
+                backgroundColor: Colors.white),
             BottomNavigationBarItem(
-                icon: Icon(Icons.format_list_bulleted_outlined),
-                label: "More",
-                backgroundColor: Colors.red),
+                icon: Icon(Icons.person_2_outlined),
+                label: "",
+                backgroundColor: Colors.white),
           ]),
     );
   }
